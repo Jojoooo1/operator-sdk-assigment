@@ -38,12 +38,17 @@ import io.javaoperatorsdk.operator.processing.dependent.workflow.WorkflowReconci
 import io.javaoperatorsdk.operator.processing.event.ResourceID;
 import io.javaoperatorsdk.operator.processing.event.source.EventSource;
 import io.javaoperatorsdk.operator.processing.event.source.informer.InformerEventSource;
+import io.quarkiverse.operatorsdk.annotations.CSVMetadata;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 
+@CSVMetadata(
+    bundleName = "NamespaceReconciler",
+    provider = @CSVMetadata.Provider(name = "akuity.io"),
+    description = "NamespaceReconciler definition")
 @Slf4j
 @ControllerConfiguration(
     name = "namespace-reconciler",

@@ -17,10 +17,12 @@
     <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-sdk.version>6.7.1</quarkus-sdk.version>
+    
     <quarkus.version>3.13.0</quarkus.version>
     
+    <quarkus-operator-sdk.version>6.7.1</quarkus-operator-sdk.version>
     <fabric8.version>6.13.1</fabric8.version>
+    <bcp.version>1.78.1</bcp.version>
     
     <!-- Utilities -->
     <projectlombok.version>1.18.34</projectlombok.version>
@@ -36,7 +38,7 @@
       <dependency>
         <groupId>io.quarkiverse.operatorsdk</groupId>
         <artifactId>quarkus-operator-sdk-bom</artifactId>
-        <version>${quarkus-sdk.version}</version>
+        <version>${quarkus-operator-sdk.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -49,13 +51,13 @@
     <dependency>
       <groupId>io.quarkiverse.operatorsdk</groupId>
       <artifactId>quarkus-operator-sdk</artifactId>
-      <version>6.7.1</version>
+      <version>${quarkus-operator-sdk.version}</version>
     </dependency>
     
     <dependency>
       <groupId>io.quarkiverse.operatorsdk</groupId>
       <artifactId>quarkus-operator-sdk-bundle-generator</artifactId>
-      <version>6.7.1</version>
+      <version>${quarkus-operator-sdk.version}</version>
     </dependency>
     
     <dependency>
@@ -67,13 +69,13 @@
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk18on</artifactId>
-      <version>1.78.1</version>
+      <version>${bcp.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk18on</artifactId>
-      <version>1.78.1</version>
+      <version>${bcp.version}</version>
     </dependency>
     
     <!-- Infra -->
