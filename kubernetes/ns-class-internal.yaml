@@ -1,0 +1,31 @@
+apiVersion: akuity.io/v1
+kind: NamespaceClass
+metadata:
+  name: internal-network
+  namespace: default
+spec:
+  networkPolicy:
+    ingress: "10.0.0.0/16"
+    egress: "10.0.0.0/16"
+  
+  resourceQuota:
+    cpu: "8"
+    memory: "16Gi"
+    pods: "20"
+  
+  limitRange:
+    defaultRequestCpu: "500m"
+    defaultRequestMemory: "512Mi"
+    defaultLimitCpu: "500m"
+    defaultLimitMemory: "512Mi"
+  
+  security:
+    podSecurityStandard: "baseline"
+  
+  storage:
+    provisioner: "rancher.io/local-path"
+  
+  rbac:
+    allowedRoles:
+      - "admin"
+      - "editor"
