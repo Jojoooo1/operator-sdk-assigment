@@ -21,10 +21,12 @@
     <quarkus.version>3.13.0</quarkus.version>
     
     <fabric8.version>6.13.1</fabric8.version>
+    
+    <!-- Utilities -->
     <projectlombok.version>1.18.34</projectlombok.version>
     <apache-commons-text.version>1.12.0</apache-commons-text.version>
     
-    <!-- testing -->
+    <!-- Testing -->
     <maven-surefire.version>3.3.1</maven-surefire.version>
     <operator-framework-junit-5.version>4.9.2</operator-framework-junit-5.version>
   </properties>
@@ -42,6 +44,8 @@
   </dependencyManagement>
   
   <dependencies>
+    
+    <!-- Operator -->
     <dependency>
       <groupId>io.quarkiverse.operatorsdk</groupId>
       <artifactId>quarkus-operator-sdk</artifactId>
@@ -61,17 +65,6 @@
     </dependency>
     
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
-      <version>${quarkus.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-container-image-buildpack</artifactId>
-    </dependency>
-    
-    <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk18on</artifactId>
       <version>1.78.1</version>
@@ -83,6 +76,18 @@
       <version>1.78.1</version>
     </dependency>
     
+    <!-- Infra -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+      <version>${quarkus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-buildpack</artifactId>
+    </dependency>
+    
+    <!-- Utilities -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -96,7 +101,7 @@
       <version>${apache-commons-text.version}</version>
     </dependency>
     
-    <!-- Testing dependencies -->
+    <!-- Testing -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
