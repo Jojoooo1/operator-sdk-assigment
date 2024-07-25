@@ -27,7 +27,7 @@ Welcome to the Documentation of the `NamespaceClass` operator assignment.
 
 - [CI/CD](#cicd)
     - [Strategy](#strategy)
-    - [Integration Tests](#integration-tests)
+    - [CI workflows](#ci-workflows)
 
 - [Production recommendations](#production-recommendations)
     - [Monitoring](#monitoring)
@@ -341,7 +341,7 @@ class NetworkPolicyDRIT extends KubernetesDependentResourceBaseTest<NetworkPolic
 
 With more time I would have also implemented many more unit tests.
 
-### Integration Tests
+### CI Workflows
 
 Two simple workflows are defined inside the `/.github/workflows` directory. One workflow is triggered on every pull request interaction, and the other
 on pushes to the develop branch. Both workflows use Minikube to launch the integration tests.
