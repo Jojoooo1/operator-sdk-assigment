@@ -377,6 +377,8 @@ If you follow this path, ensure high availability (HA) with the following:
   or zones, improving fault tolerance.
 - **PodDisruptionBudget**: Create a `PodDisruptionBudget` with at least 2 replicas to prevent
   issues or failures during Kubernetes operations.
+- **Cache**: If you go for the centralized cache implementation, use a fallback strategy in another region to mitigate risks and
+  ensure continuous availability in case of regional failures.
 
 ### Monitoring
 
