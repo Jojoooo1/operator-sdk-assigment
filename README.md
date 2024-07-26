@@ -254,8 +254,8 @@ private InformerEventSource<NamespaceClass, Namespace> buildNamespaceClassInform
 ```
 
 I did not implement a function to update the `NamespaceClass` status, but it can be easily done by iterating over all cached namespaces and checking
-the `namespaceclass.akuity.io/ready` label. To prevent any unnecessary calls to the Kubernetes API, I would recommend to only update the status if it
-was updated.
+the `namespaceclass.akuity.io/ready` label. To optimize reconciliation processing and prevent any unnecessary calls to the Kubernetes API during
+reconciliation, I would recommend to only update the status if it has changed.
 
 ### Dependents
 
