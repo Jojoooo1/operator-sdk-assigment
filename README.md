@@ -409,13 +409,13 @@ I strongly recommend creating an alerting rule based on the failed metrics `oper
                   description: "Reconciliation failed for namespace {{ $labels.namespace }}"
               
               - alert: NamespaceClassControllerReconciliationQueueLengthIsHigh
-                expr: operator_sdk_reconciliations_queue_size > 10
+                expr: operator_sdk_reconciliations_queue_size > 50
                 for: 5m
                 labels:
                   severity: warning
                 annotations:
                   summary: "High reconciliation queue length"
-                  description: "The reconciliation queue length has exceeded 10 for the past 5 minutes."
+                  description: "The reconciliation queue length has exceeded 50 for the past 5 minutes."
 ```
 
 ### Security
