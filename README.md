@@ -371,7 +371,7 @@ reconciliation and event processing, while others remain on standby, ready to ta
 If you follow this path, ensure high availability (HA) with the following:
 
 - **Replicas**: Maintain a minimum of 2 replicas.
-- **Autoscaling**: Implement autoscaling based on CPU and memory metrics (or other) to efficiently
+- **Autoscaling**: Implement (vertical) autoscaling based on CPU and/or memory metrics (or other) to efficiently
   handle varying workload demands.
 - **Anti-Affinity**: Create an anti-affinity rule to distribute replicas across different nodes
   or zones, improving fault tolerance.
