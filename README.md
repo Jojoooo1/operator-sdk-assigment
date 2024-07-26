@@ -22,6 +22,7 @@ Welcome to the Documentation of the `NamespaceClass` operator assignment.
     - [Dependents](#dependents)
 
 - [Infra](#infra)
+    - [Caching](#caching)
     - [Image building](#image-building)
     - [Observability](#observability)
 
@@ -30,6 +31,7 @@ Welcome to the Documentation of the `NamespaceClass` operator assignment.
     - [CI workflows](#ci-workflows)
 
 - [Production recommendations](#production-recommendations)
+    - [High Availability (HA)](#high-availability-ha)
     - [Monitoring](#monitoring)
     - [Logging](#logging)
     - [Alerting](#alerting)
@@ -267,6 +269,14 @@ By default, every modification will trigger a reconciliation of the namespace.
 
 ## Infra
 
+### Caching
+
+The Operator SDK implements an in-memory cache to optimize reconciliation. Additionally, every interaction between primary and secondary resources has
+been implemented to maximize cache use and avoid unnecessary calls to the Kubernetes API server. Furthermore, as explained
+in [Reconcilers](#reconcilers), all interactions with `NamespaceClass` have also been optimized to use an in-memory cache. If needed, for better
+memory management, the `BoundedItemStore` can be extended to implement a centralized cache like [Redis](https://redis.io)
+or [Valkey](https://valkey.io/).
+
 ### Image building
 
 The application utilizes [Buildpack](https://buildpacks.io/) to construct a production-ready image
@@ -347,6 +357,22 @@ Two simple workflows are defined inside the `/.github/workflows` directory. One 
 on pushes to the develop branch. Both workflows use Minikube to launch the integration tests.
 
 ## Production recommendations
+
+### High Availability (HA)
+
+Operators are generally deployed with a single running or active instance. However, the `Operator` can be configured
+with `withLeaderElectionConfiguration` to define a leader election configuration. This ensures that only one instance, the leader, handles the
+reconciliation and event processing, while others remain on standby, ready to take over if the leader fails.
+
+If you follow this path, ensure high availability (HA) with the following:
+
+- **Replicas**: Maintain a minimum of 2 replicas.
+- **Autoscaling**: Implement autoscaling based on CPU and memory metrics (or other) to efficiently
+  handle varying workload demands.
+- **Anti-Affinity**: Create an anti-affinity rule to distribute replicas across different nodes
+  or zones, improving fault tolerance.
+- **PodDisruptionBudget**: Create a `PodDisruptionBudget` with at least 2 replicas to prevent
+  issues or failures during Kubernetes operations.
 
 ### Monitoring
 
