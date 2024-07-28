@@ -18,7 +18,9 @@ class LimitRangeDRIT extends KubernetesDependentResourceBaseTest<LimitRange> {
   @RegisterExtension
   static LocallyRunOperatorExtension operator =
       LocallyRunOperatorExtension.builder()
-          .waitForNamespaceDeletion(false)
+          .waitForNamespaceDeletion(true)
+          // Necessary to keep namespace name small, or it will exceed 63 characters.
+          .withPerClassNamespaceNameSupplier(extensionContext -> random(6))
           .oneNamespacePerClass(true)
           .withReconciler(new NamespaceReconciler())
           .withKubernetesClient(new KubernetesClientBuilder().build())
