@@ -2,7 +2,7 @@ apiVersion: akuity.io/v1
 kind: NamespaceClass
 metadata:
   name: public-network
-  namespace: default
+  namespace: d
 spec:
   networkPolicy:
     ingress: "0.0.0.0/0"

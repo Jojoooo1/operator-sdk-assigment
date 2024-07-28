@@ -3,6 +3,7 @@ package com.akuity.reconcilers;
 import static com.akuity.utils.Constants.NAMESPACE_IS_SYNC_LABEL_KEY;
 import static com.akuity.utils.Constants.NAMESPACE_POD_SECURITY_ENFORCE_LABEL_KEY;
 import static com.akuity.utils.Constants.NAMESPACE_POD_SECURITY_ENFORCE_VERSION_LABEL_KEY;
+import static java.lang.String.format;
 
 import com.akuity.conditions.HasValidNamespaceClass;
 import com.akuity.conditions.HasValidNamespaceClassAndAdminRole;
@@ -161,12 +162,12 @@ public class NamespaceReconciler
 
     putAllNamespaceClassInCache(context);
 
-    // Watch all namespace
+    // Watch all namespaces
     var nsES =
         new InformerEventSource<>(
             InformerConfiguration.from(Namespace.class, context).build(), context);
 
-    // Watch namespaceClass
+    // Watch all NamespaceClasses
     var nsClassES = buildNamespaceClassInformerEventSource(context);
 
     return EventSourceInitializer.nameEventSources(nsClassES, nsES);
@@ -248,11 +249,20 @@ public class NamespaceReconciler
   }
 
   private static void addToCache(final ResourceID resourceID) {
-    namespaceClassCache.put(resourceID.getNamespace() + "#" + resourceID.getName(), resourceID);
+    if (namespaceClassCache.containsKey(resourceID.getName())) {
+      var errorMessage =
+          format(
+              "NamespaceClass with name '%s' already exist, please remove one of the CRDs",
+              resourceID.getName());
+      log.error(errorMessage);
+      // Send message to slack!!
+      throw new IllegalStateException(errorMessage);
+    }
+    namespaceClassCache.put(resourceID.getName(), resourceID);
   }
 
   private static void removeFromCache(final ResourceID resourceID) {
-    namespaceClassCache.remove(resourceID.getNamespace() + "#" + resourceID.getName(), resourceID);
+    namespaceClassCache.remove(resourceID.getName(), resourceID);
   }
 
   private static void addToCache(final NamespaceClass namespaceClass) {
