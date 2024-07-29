@@ -25,18 +25,27 @@ public final class ResourceUtils {
 
   public static <T extends HasMetadata> ObjectMetaBuilder fromResource(
       final T primary, final String component) {
-    return new ObjectMetaBuilder()
-        .withName(name(primary, component))
-        .withNamespace(namespace(primary))
-        .addToLabels(K8S_NAME, name(primary, component))
-        .addToLabels(K8S_COMPONENT, component)
-        .addToLabels(
-            K8S_NAMESPACE_CLASS,
-            primary
-                .getMetadata()
-                .getLabels()
-                .getOrDefault(CLASS_NAME_LABEL_KEY, Constants.OPERATOR_NAME))
-        .addToLabels(K8S_MANAGED_BY, Constants.OPERATOR_NAME);
+
+    var meta =
+        new ObjectMetaBuilder()
+            .withName(name(primary, component))
+            .withNamespace(namespace(primary))
+            .addToLabels(K8S_NAME, name(primary, component))
+            .addToLabels(K8S_COMPONENT, component)
+            .addToLabels(
+                K8S_NAMESPACE_CLASS,
+                primary
+                    .getMetadata()
+                    .getLabels()
+                    .getOrDefault(CLASS_NAME_LABEL_KEY, Constants.OPERATOR_NAME))
+            .addToLabels(K8S_MANAGED_BY, Constants.OPERATOR_NAME);
+
+    // if (primary.getMetadata().getLabels().containsKey(K8S_ARGOCD_INSTANCE)) {
+    //   meta.addToLabels(K8S_ARGOCD_INSTANCE,
+    // primary.getMetadata().getLabels().get(K8S_ARGOCD_INSTANCE));
+    // }
+
+    return meta;
   }
 
   // Note: always use deterministic name, or it will mess with your cache.

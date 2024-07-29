@@ -26,7 +26,6 @@ import com.akuity.dependents.ServiceAccountViewerDR;
 import com.akuity.dependents.StorageClassDR;
 import com.akuity.utils.NamespaceUtils;
 import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.client.dsl.base.CustomResourceDefinitionContext;
 import io.javaoperatorsdk.operator.api.config.informer.InformerConfiguration;
 import io.javaoperatorsdk.operator.api.reconciler.Context;
 import io.javaoperatorsdk.operator.api.reconciler.ControllerConfiguration;
@@ -160,8 +159,6 @@ public class NamespaceReconciler
   @Override
   public Map<String, EventSource> prepareEventSources(final EventSourceContext<Namespace> context) {
 
-    putAllNamespaceClassInCache(context);
-
     // Watch all namespaces
     var nsES =
         new InformerEventSource<>(
@@ -230,24 +227,7 @@ public class NamespaceReconciler
     primary.getMetadata().setLabels(nsLabels);
     return primary;
   }
-
-  private static void putAllNamespaceClassInCache(final EventSourceContext<Namespace> context) {
-    context
-        .getClient()
-        .genericKubernetesResources(
-            new CustomResourceDefinitionContext.Builder()
-                .withVersion("v1")
-                .withKind("NamespaceClass")
-                .withGroup("akuity.io")
-                .build())
-        .inAnyNamespace()
-        .list()
-        .getItems()
-        .stream()
-        .map(ResourceID::fromResource)
-        .forEach(NamespaceReconciler::addToCache);
-  }
-
+  
   private static void addToCache(final ResourceID resourceID) {
     if (namespaceClassCache.containsKey(resourceID.getName())) {
       var errorMessage =

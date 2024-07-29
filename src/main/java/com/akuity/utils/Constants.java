@@ -17,4 +17,6 @@ public class Constants {
   public static final String K8S_COMPONENT = "app.kubernetes.io/component";
   public static final String K8S_NAMESPACE_CLASS = "app.kubernetes.io/namespace-class";
   public static final String K8S_MANAGED_BY = "app.kubernetes.io/managed-by";
+
+  public static final String K8S_ARGOCD_INSTANCE = "argocd.argoproj.io/instance";
 }
