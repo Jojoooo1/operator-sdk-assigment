@@ -8,6 +8,7 @@ import static java.lang.String.format;
 import com.akuity.conditions.HasValidNamespaceClass;
 import com.akuity.conditions.HasValidNamespaceClassAndAdminRole;
 import com.akuity.conditions.HasValidNamespaceClassAndEditorRole;
+import com.akuity.conditions.HasValidNamespaceClassAndNetworkPolicy;
 import com.akuity.conditions.HasValidNamespaceClassAndViewerRole;
 import com.akuity.customresources.NamespaceClass;
 import com.akuity.dependents.LimitRangeDR;
@@ -61,7 +62,7 @@ import lombok.extern.slf4j.Slf4j;
       @Dependent(
           name = NetworkPolicyDR.COMPONENT,
           type = NetworkPolicyDR.class,
-          reconcilePrecondition = HasValidNamespaceClass.class),
+          reconcilePrecondition = HasValidNamespaceClassAndNetworkPolicy.class),
       // Resource DRs
       @Dependent(
           name = LimitRangeDR.COMPONENT,
@@ -227,7 +228,7 @@ public class NamespaceReconciler
     primary.getMetadata().setLabels(nsLabels);
     return primary;
   }
-  
+
   private static void addToCache(final ResourceID resourceID) {
     if (namespaceClassCache.containsKey(resourceID.getName())) {
       var errorMessage =
