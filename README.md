@@ -467,6 +467,7 @@ To enhance security, consider implementing the following measures:
               cpu: 500m
             limits:
               memory: 768Mi
+              cpu: 500m
           
           # Tighten security context
           securityContext:
