@@ -21,7 +21,7 @@
     <quarkus.version>3.13.0</quarkus.version>
     
     <quarkus-operator-sdk.version>6.7.1</quarkus-operator-sdk.version>
-    <fabric8.version>6.13.1</fabric8.version>
+    <fabric8.version>6.13.2</fabric8.version>
     <bcp.version>1.78.1</bcp.version>
     
     <!-- Utilities -->
