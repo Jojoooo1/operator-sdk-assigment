@@ -30,7 +30,7 @@
     
     <!-- Testing -->
     <maven-surefire.version>3.3.1</maven-surefire.version>
-    <operator-framework-junit-5.version>4.9.2</operator-framework-junit-5.version>
+    <operator-framework-junit-5.version>4.9.3</operator-framework-junit-5.version>
   </properties>
   
   <dependencyManagement>
